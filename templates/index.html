@@ -1,0 +1,166 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CipherLab — Learn Cryptography Interactively</title>
+    <meta name="description"
+        content="An interactive educational tool for learning classical cryptographic ciphers with step-by-step explanations.">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=JetBrains+Mono:wght@400;500;600&display=swap"
+        rel="stylesheet">
+    <link rel="stylesheet" href="/static/css/style.css">
+</head>
+
+<body>
+
+    <!-- ─── Sidebar ─────────────────────────────────────────── -->
+    <aside class="sidebar" id="sidebar">
+        <div class="sidebar-header">
+            <div class="logo">
+                <span class="logo-icon">🔐</span>
+                <div>
+                    <h1 class="logo-text">CipherLab</h1>
+                    <p class="logo-sub">Learn Cryptography</p>
+                </div>
+            </div>
+        </div>
+        <nav class="sidebar-nav" id="sidebar-nav">
+            <!-- Populated by JS -->
+        </nav>
+    </aside>
+
+    <!-- ─── Main Content ────────────────────────────────────── -->
+    <main class="main" id="main">
+        <!-- Hero / Landing -->
+        <section class="hero" id="hero-section">
+            <div class="hero-content">
+                <h2 class="hero-title">
+                    <span class="hero-gradient">Explore the Art</span><br>
+                    of Cryptography
+                </h2>
+                <p class="hero-desc">
+                    Dive into 18 classical ciphers with interactive encryption & decryption,
+                    step-by-step visual explanations, and rich historical context.
+                </p>
+                <div class="hero-stats">
+                    <div class="stat-card">
+                        <span class="stat-number" id="stat-total">18</span>
+                        <span class="stat-label">Ciphers</span>
+                    </div>
+                    <div class="stat-card">
+                        <span class="stat-number">4</span>
+                        <span class="stat-label">Categories</span>
+                    </div>
+                    <div class="stat-card">
+                        <span class="stat-number">∞</span>
+                        <span class="stat-label">Learning</span>
+                    </div>
+                </div>
+                <p class="hero-hint">← Select a cipher from the sidebar to begin</p>
+            </div>
+        </section>
+
+        <!-- Cipher Workspace (hidden until a cipher is selected) -->
+        <section class="workspace" id="workspace" style="display:none;">
+            <!-- Cipher Header -->
+            <div class="cipher-header" id="cipher-header">
+                <div class="cipher-badge" id="cipher-badge">Substitution</div>
+                <h2 class="cipher-name" id="cipher-name">Caesar Cipher</h2>
+                <p class="cipher-desc" id="cipher-desc"></p>
+            </div>
+
+            <!-- History Card -->
+            <div class="info-card" id="history-card">
+                <div class="info-card-header">
+                    <span class="info-icon">📜</span>
+                    <h3>Historical Background</h3>
+                </div>
+                <p id="cipher-history"></p>
+            </div>
+
+            <!-- Analysis Cards -->
+            <div class="analysis-grid" id="analysis-grid" style="display:none;">
+                <div class="info-card analysis-card analysis-advantages">
+                    <div class="info-card-header">
+                        <span class="info-icon">✅</span>
+                        <h3>Advantages</h3>
+                    </div>
+                    <ul class="analysis-list" id="advantages-list"></ul>
+                </div>
+                <div class="info-card analysis-card analysis-disadvantages">
+                    <div class="info-card-header">
+                        <span class="info-icon">⚠️</span>
+                        <h3>Disadvantages</h3>
+                    </div>
+                    <ul class="analysis-list" id="disadvantages-list"></ul>
+                </div>
+            </div>
+            <div class="info-card analysis-card analysis-improvements" id="improvements-card" style="display:none;">
+                <div class="info-card-header">
+                    <span class="info-icon">🔬</span>
+                    <h3>Historical Improvements &amp; Context</h3>
+                </div>
+                <p id="improvements-text"></p>
+            </div>
+
+            <!-- Input / Output Panel -->
+            <div class="io-panel">
+                <div class="io-col">
+                    <label class="io-label" for="input-text">Input Text</label>
+                    <textarea class="io-textarea" id="input-text" placeholder="Enter your text here…"
+                        rows="4"></textarea>
+                </div>
+                <div class="io-col io-col-key">
+                    <label class="io-label" for="input-key">Key</label>
+                    <input class="io-input" type="text" id="input-key" placeholder="Key">
+                    <p class="key-hint" id="key-hint"></p>
+                </div>
+                <div class="io-col">
+                    <label class="io-label">Output</label>
+                    <div class="io-output-box" id="output-box">
+                        <span class="output-placeholder">Result will appear here…</span>
+                    </div>
+                    <button class="copy-btn" id="copy-btn" title="Copy result" style="display:none;">
+                        📋 Copy
+                    </button>
+                </div>
+            </div>
+
+            <!-- Action Buttons -->
+            <div class="action-row">
+                <button class="btn btn-encrypt" id="btn-encrypt">
+                    <span class="btn-icon">🔒</span> Encrypt
+                </button>
+                <button class="btn btn-decrypt" id="btn-decrypt">
+                    <span class="btn-icon">🔓</span> Decrypt
+                </button>
+                <button class="btn btn-clear" id="btn-clear">
+                    <span class="btn-icon">✕</span> Clear
+                </button>
+            </div>
+
+            <!-- Error Banner -->
+            <div class="error-banner" id="error-banner" style="display:none;"></div>
+
+            <!-- Step-by-step Explanation -->
+            <div class="steps-section" id="steps-section" style="display:none;">
+                <h3 class="steps-title">
+                    <span class="steps-icon">📖</span>
+                    Step-by-Step Explanation
+                </h3>
+                <div class="steps-container" id="steps-container"></div>
+            </div>
+        </section>
+    </main>
+
+    <!-- Mobile sidebar toggle -->
+    <button class="sidebar-toggle" id="sidebar-toggle" aria-label="Toggle sidebar">☰</button>
+
+    <script src="/static/js/app.js"></script>
+</body>
+
+</html>
