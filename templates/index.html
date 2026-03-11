@@ -10,7 +10,7 @@
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link
-        href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=JetBrains+Mono:wght@400;500;600&display=swap"
+        href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;500;600;700;800;900&family=Inter:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500;600&display=swap"
         rel="stylesheet">
     <link rel="stylesheet" href="/static/css/style.css">
 </head>
@@ -21,7 +21,7 @@
     <aside class="sidebar" id="sidebar">
         <div class="sidebar-header">
             <div class="logo">
-                <span class="logo-icon">🔐</span>
+                <img src="/static/logo.gif" alt="CipherLab Logo" class="logo-image">
                 <div>
                     <h1 class="logo-text">CipherLab</h1>
                     <p class="logo-sub">Learn Cryptography</p>
@@ -35,6 +35,10 @@
 
     <!-- ─── Main Content ────────────────────────────────────── -->
     <main class="main" id="main">
+        <!-- Background Ambient Glow -->
+        <div class="ambient-glow glow-1"></div>
+        <div class="ambient-glow glow-2"></div>
+        
         <!-- Hero / Landing -->
         <section class="hero" id="hero-section">
             <div class="hero-content">
@@ -43,16 +47,16 @@
                     of Cryptography
                 </h2>
                 <p class="hero-desc">
-                    Dive into 18 classical ciphers with interactive encryption & decryption,
-                    step-by-step visual explanations, and rich historical context.
+                    Dive into 41 classical & modern ciphers with interactive encryption & decryption,
+                    step-by-step visual explanations, and rich historical context — from Caesar to ChaCha20.
                 </p>
                 <div class="hero-stats">
                     <div class="stat-card">
-                        <span class="stat-number" id="stat-total">18</span>
+                        <span class="stat-number" id="stat-total">41</span>
                         <span class="stat-label">Ciphers</span>
                     </div>
                     <div class="stat-card">
-                        <span class="stat-number">4</span>
+                        <span class="stat-number" id="stat-categories">10</span>
                         <span class="stat-label">Categories</span>
                     </div>
                     <div class="stat-card">

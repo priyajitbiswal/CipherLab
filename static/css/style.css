@@ -12,43 +12,44 @@
 }
 
 :root {
-    /* Palette */
-    --bg-deep: #0a0e1a;
-    --bg-surface: #111827;
-    --bg-card: #1a2235;
-    --bg-card-hover: #1f2a40;
-    --bg-glass: rgba(26, 34, 53, 0.72);
-    --border: rgba(99, 130, 190, 0.12);
-    --border-glow: rgba(99, 179, 237, 0.25);
+    /* Premium Modern Dark Palette */
+    --bg-deep: #05060f;
+    --bg-surface: #0a0c1a;
+    --bg-card: rgba(18, 22, 41, 0.6);
+    --bg-card-hover: rgba(28, 35, 60, 0.85);
+    --bg-glass: rgba(18, 22, 41, 0.7);
+    
+    --border: rgba(99, 130, 190, 0.15);
+    --border-glow: rgba(56, 189, 248, 0.35);
 
-    --text-primary: #e8ecf4;
-    --text-secondary: #94a3b8;
+    --text-primary: #f8fafc;
+    --text-secondary: #cbd5e1;
     --text-muted: #64748b;
 
-    --accent: #60a5fa;
-    --accent-bright: #93c5fd;
-    --accent-dim: #3b82f6;
+    --accent: #3b82f6;
+    --accent-bright: #60a5fa;
+    --accent-dim: #2563eb;
     --green: #34d399;
-    --green-dim: #059669;
-    --red: #f87171;
-    --red-dim: #dc2626;
+    --green-bright: #10b981;
+    --red: #fb7185;
     --amber: #fbbf24;
     --purple: #a78bfa;
+    --cyan: #06b6d4;
 
-    --gradient-hero: linear-gradient(135deg, #60a5fa 0%, #a78bfa 50%, #f472b6 100%);
-    --gradient-btn: linear-gradient(135deg, #3b82f6 0%, #6366f1 100%);
-    --gradient-btn-g: linear-gradient(135deg, #059669 0%, #34d399 100%);
-    --gradient-btn-r: linear-gradient(135deg, #dc2626 0%, #f87171 100%);
+    --gradient-hero: linear-gradient(135deg, #38bdf8 0%, #818cf8 50%, #e879f9 100%);
+    --gradient-btn: linear-gradient(135deg, #2563eb 0%, #4f46e5 100%);
+    --gradient-btn-g: linear-gradient(135deg, #059669 0%, #10b981 100%);
 
+    --font-heading: 'Outfit', 'Inter', system-ui, sans-serif;
     --font-sans: 'Inter', ui-sans-serif, system-ui, -apple-system, sans-serif;
     --font-mono: 'JetBrains Mono', ui-monospace, monospace;
 
-    --sidebar-w: 300px;
-    --radius: 12px;
-    --radius-sm: 8px;
-    --shadow: 0 4px 24px rgba(0, 0, 0, 0.35);
-    --shadow-glow: 0 0 30px rgba(96, 165, 250, 0.08);
-    --transition: all 0.25s cubic-bezier(0.4, 0, 0.2, 1);
+    --sidebar-w: 280px;
+    --radius: 16px;
+    --radius-sm: 10px;
+    --shadow: 0 8px 32px rgba(0, 0, 0, 0.4);
+    --shadow-glow: 0 0 30px rgba(56, 189, 248, 0.15);
+    --transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
 }
 
 html {
@@ -63,6 +64,30 @@ body {
     min-height: 100vh;
     overflow-x: hidden;
     line-height: 1.6;
+}
+
+/* ── Ambient Glows ──────────────────────────────────────────── */
+.ambient-glow {
+    position: fixed;
+    border-radius: 50%;
+    filter: blur(140px);
+    opacity: 0.15;
+    z-index: 0;
+    pointer-events: none;
+}
+.glow-1 {
+    width: 600px;
+    height: 600px;
+    background: #38bdf8;
+    top: -200px;
+    right: -100px;
+}
+.glow-2 {
+    width: 600px;
+    height: 600px;
+    background: #e879f9;
+    bottom: -150px;
+    left: 20%;
 }
 
 /* ── Scrollbar ──────────────────────────────────────────────── */
@@ -110,19 +135,18 @@ body {
     gap: 12px;
 }
 
-.logo-icon {
-    font-size: 28px;
+.logo-image {
     width: 44px;
     height: 44px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    background: var(--gradient-btn);
-    border-radius: 10px;
+    border-radius: 12px;
+    object-fit: cover;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.5);
+    background: white; /* Backdrop for transparent gifs */
 }
 
 .logo-text {
-    font-size: 1.25rem;
+    font-family: var(--font-heading);
+    font-size: 1.35rem;
     font-weight: 800;
     letter-spacing: -0.5px;
     background: var(--gradient-hero);
@@ -134,9 +158,9 @@ body {
 .logo-sub {
     font-size: 0.72rem;
     color: var(--text-muted);
-    font-weight: 500;
+    font-weight: 600;
     text-transform: uppercase;
-    letter-spacing: 1.2px;
+    letter-spacing: 1.5px;
 }
 
 .sidebar-nav {
@@ -183,6 +207,96 @@ body {
     background: var(--amber);
 }
 
+/* Modern cipher category dots */
+.cat-block .cat-dot {
+    background: #f97316;
+}
+
+.cat-stream .cat-dot {
+    background: #06b6d4;
+}
+
+.cat-factor .cat-dot {
+    background: #f43f5e;
+}
+
+.cat-dlog .cat-dot {
+    background: #8b5cf6;
+}
+
+.cat-ec .cat-dot {
+    background: #ec4899;
+}
+
+.cat-hash .cat-dot {
+    background: #14b8a6;
+}
+
+/* Sidebar Section Headers */
+.nav-section {
+    margin-bottom: 4px;
+}
+
+.nav-section-header {
+    font-size: 0.72rem;
+    font-weight: 800;
+    text-transform: uppercase;
+    letter-spacing: 2px;
+    color: var(--text-primary);
+    padding: 14px 14px 6px;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    cursor: pointer;
+    user-select: none;
+    border-radius: var(--radius-sm);
+    transition: var(--transition);
+    position: relative;
+}
+
+.nav-section-header::after {
+    content: "▾";
+    position: absolute;
+    right: 14px;
+    font-size: 0.8rem;
+    color: var(--text-muted);
+    transition: transform 0.2s ease;
+}
+
+.nav-section.collapsed .nav-section-header::after {
+    transform: rotate(-90deg);
+}
+
+.nav-section-header:hover {
+    background: rgba(96, 165, 250, 0.06);
+    color: var(--accent-bright);
+}
+
+.section-icon {
+    font-size: 0.9rem;
+}
+
+.nav-section.collapsed .nav-category {
+    display: none;
+}
+
+.section-classical .nav-section-header {
+    border-left: 3px solid var(--accent);
+    background: rgba(96, 165, 250, 0.04);
+}
+
+.section-modern .nav-section-header {
+    border-left: 3px solid #8b5cf6;
+    background: rgba(139, 92, 246, 0.04);
+}
+
+/* Modern badge */
+.cipher-badge.badge-modern {
+    background: rgba(139, 92, 246, 0.12);
+    color: var(--purple);
+    border-color: rgba(139, 92, 246, 0.2);
+}
+
 .nav-item {
     display: block;
     padding: 9px 14px;
@@ -216,6 +330,8 @@ body {
     padding: 32px 40px 60px;
     overflow-y: auto;
     max-height: 100vh;
+    position: relative;
+    z-index: 1;
 }
 
 /* ── Hero / Landing ─────────────────────────────────────────── */
@@ -224,7 +340,7 @@ body {
     align-items: center;
     justify-content: center;
     min-height: 80vh;
-    animation: fadeIn 0.6s ease-out;
+    animation: fadeIn 0.8s cubic-bezier(0.2, 0.8, 0.2, 1);
 }
 
 @keyframes fadeIn {
@@ -232,7 +348,6 @@ body {
         opacity: 0;
         transform: translateY(20px);
     }
-
     to {
         opacity: 1;
         transform: translateY(0);
@@ -241,15 +356,16 @@ body {
 
 .hero-content {
     text-align: center;
-    max-width: 640px;
+    max-width: 680px;
 }
 
 .hero-title {
-    font-size: 3rem;
+    font-family: var(--font-heading);
+    font-size: 3.5rem;
     font-weight: 900;
-    line-height: 1.15;
+    line-height: 1.1;
     letter-spacing: -1.5px;
-    margin-bottom: 20px;
+    margin-bottom: 24px;
 }
 
 .hero-gradient {
@@ -274,15 +390,17 @@ body {
 }
 
 .stat-card {
-    background: var(--bg-card);
+    background: var(--bg-glass);
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
     border: 1px solid var(--border);
     border-radius: var(--radius);
-    padding: 20px 28px;
+    padding: 24px 32px;
     display: flex;
     flex-direction: column;
     align-items: center;
-    gap: 4px;
-    min-width: 110px;
+    gap: 6px;
+    min-width: 120px;
     transition: var(--transition);
 }
 
@@ -340,10 +458,12 @@ body {
 }
 
 .cipher-name {
-    font-size: 2rem;
+    font-family: var(--font-heading);
+    font-size: 2.5rem;
     font-weight: 800;
-    letter-spacing: -0.8px;
+    letter-spacing: -1px;
     margin-bottom: 8px;
+    color: var(--text-primary);
 }
 
 .cipher-desc {
@@ -354,12 +474,15 @@ body {
 
 /* Info Card */
 .info-card {
-    background: var(--bg-card);
+    background: var(--bg-glass);
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
     border: 1px solid var(--border);
     border-radius: var(--radius);
-    padding: 20px 24px;
+    padding: 24px 28px;
     margin-bottom: 28px;
     transition: var(--transition);
+    box-shadow: 0 4px 20px rgba(0,0,0,0.1);
 }
 
 .info-card:hover {
@@ -558,12 +681,13 @@ body {
 }
 
 .btn {
-    padding: 12px 28px;
-    border-radius: var(--radius-sm);
+    padding: 14px 32px;
+    border-radius: 9999px; /* Pill shape for premium feel */
     border: none;
-    font-family: var(--font-sans);
-    font-size: 0.9rem;
-    font-weight: 600;
+    font-family: var(--font-heading);
+    font-size: 0.95rem;
+    font-weight: 700;
+    letter-spacing: 0.5px;
     cursor: pointer;
     display: flex;
     align-items: center;

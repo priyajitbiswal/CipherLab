@@ -37,11 +37,49 @@
 
     // ── Category config ─────────────────────────────────────────
     const CAT_LABELS = {
+        // Classical
         "Monoalphabetic Substitution": { cls: "cat-mono", icon: "🔤" },
         "Polyalphabetic Substitution": { cls: "cat-poly", icon: "🔀" },
-        "Polygraphic Substitution": { cls: "cat-polygr", icon: "🧮" },
-        "Transposition": { cls: "cat-trans", icon: "🔄" },
+        "Polygraphic Substitution":    { cls: "cat-polygr", icon: "🧮" },
+        "Transposition":               { cls: "cat-trans", icon: "🔄" },
+        // Modern Symmetric
+        "Block Ciphers":               { cls: "cat-block", icon: "🧱" },
+        "Stream Ciphers":              { cls: "cat-stream", icon: "🌊" },
+        // Modern Public-Key
+        "Integer Factorization":       { cls: "cat-factor", icon: "🔑" },
+        "Discrete Logarithm":          { cls: "cat-dlog", icon: "📐" },
+        "Elliptic Curve":              { cls: "cat-ec", icon: "📈" },
+        // Hash Functions
+        "Hash Functions":              { cls: "cat-hash", icon: "#️⃣" },
     };
+
+    // Category grouping for sidebar sections
+    const SIDEBAR_SECTIONS = [
+        {
+            title: "Classical Ciphers",
+            icon: "📜",
+            cls: "section-classical",
+            categories: [
+                "Monoalphabetic Substitution",
+                "Polyalphabetic Substitution",
+                "Polygraphic Substitution",
+                "Transposition",
+            ],
+        },
+        {
+            title: "Modern Ciphers",
+            icon: "🔐",
+            cls: "section-modern",
+            categories: [
+                "Block Ciphers",
+                "Stream Ciphers",
+                "Integer Factorization",
+                "Discrete Logarithm",
+                "Elliptic Curve",
+                "Hash Functions",
+            ],
+        },
+    ];
 
     // ── Init ────────────────────────────────────────────────────
     async function init() {
@@ -49,6 +87,11 @@
             const res = await fetch("/api/ciphers");
             const data = await res.json();
             buildSidebar(data.categories);
+            // Update hero stats dynamically
+            const totalEl = document.getElementById("stat-total");
+            const catEl = document.getElementById("stat-categories");
+            if (totalEl) totalEl.textContent = data.ciphers.length;
+            if (catEl) catEl.textContent = Object.keys(data.categories).length;
         } catch (err) {
             console.error("Failed to load ciphers:", err);
         }
@@ -58,34 +101,50 @@
     // ── Sidebar ─────────────────────────────────────────────────
     function buildSidebar(categories) {
         sidebarNav.innerHTML = "";
-        const order = [
-            "Monoalphabetic Substitution",
-            "Polyalphabetic Substitution",
-            "Polygraphic Substitution",
-            "Transposition",
-        ];
-        for (const cat of order) {
-            const ciphers = categories[cat];
-            if (!ciphers) continue;
-            const cfg = CAT_LABELS[cat] || { cls: "", icon: "🔸" };
 
-            const group = document.createElement("div");
-            group.className = `nav-category ${cfg.cls}`;
+        for (const section of SIDEBAR_SECTIONS) {
+            // Create section header
+            const sectionDiv = document.createElement("div");
+            sectionDiv.className = `nav-section ${section.cls}`;
 
-            const label = document.createElement("div");
-            label.className = "nav-category-label";
-            label.innerHTML = `<span class="cat-dot"></span>${cat}`;
-            group.appendChild(label);
+            const sectionHeader = document.createElement("div");
+            sectionHeader.className = "nav-section-header";
+            sectionHeader.innerHTML = `<span class="section-icon">${section.icon}</span> ${section.title}`;
+            sectionHeader.addEventListener("click", () => {
+                sectionDiv.classList.toggle("collapsed");
+            });
+            sectionDiv.appendChild(sectionHeader);
 
-            for (const c of ciphers) {
-                const item = document.createElement("div");
-                item.className = "nav-item";
-                item.textContent = c.name;
-                item.dataset.slug = c.slug;
-                item.addEventListener("click", () => selectCipher(c.slug));
-                group.appendChild(item);
+            let hasAny = false;
+
+            for (const cat of section.categories) {
+                const ciphers = categories[cat];
+                if (!ciphers) continue;
+                hasAny = true;
+                const cfg = CAT_LABELS[cat] || { cls: "", icon: "🔸" };
+
+                const group = document.createElement("div");
+                group.className = `nav-category ${cfg.cls}`;
+
+                const label = document.createElement("div");
+                label.className = "nav-category-label";
+                label.innerHTML = `<span class="cat-dot"></span>${cat}`;
+                group.appendChild(label);
+
+                for (const c of ciphers) {
+                    const item = document.createElement("div");
+                    item.className = "nav-item";
+                    item.textContent = c.name;
+                    item.dataset.slug = c.slug;
+                    item.addEventListener("click", () => selectCipher(c.slug));
+                    group.appendChild(item);
+                }
+                sectionDiv.appendChild(group);
             }
-            sidebarNav.appendChild(group);
+
+            if (hasAny) {
+                sidebarNav.appendChild(sectionDiv);
+            }
         }
     }
 
@@ -121,11 +180,33 @@
         workspace.style.animation = "";
 
         cipherBadge.textContent = info.subcategory;
+
+        // Color the badge based on category
+        cipherBadge.className = "cipher-badge";
+        if (info.category === "Modern") {
+            cipherBadge.classList.add("badge-modern");
+        }
+
         cipherName.textContent = info.name;
         cipherDesc.textContent = info.description;
         cipherHistory.textContent = info.history;
         keyHint.textContent = info.key_info || "";
         inputKey.placeholder = getDefaultKey(info.slug);
+
+        // Hash functions: change button labels
+        const isHash = info.subcategory === "Hash Functions";
+        btnEncrypt.innerHTML = isHash
+            ? '<span class="btn-icon">🔒</span> Hash'
+            : '<span class="btn-icon">🔒</span> Encrypt';
+        btnDecrypt.innerHTML = isHash
+            ? '<span class="btn-icon">🔓</span> Info'
+            : '<span class="btn-icon">🔓</span> Decrypt';
+
+        // ECDSA: change button labels
+        if (info.slug === "ecdsa") {
+            btnEncrypt.innerHTML = '<span class="btn-icon">🔒</span> Sign';
+            btnDecrypt.innerHTML = '<span class="btn-icon">🔓</span> Verify';
+        }
 
         // ── Analysis sections ───────────────────────────────────
         if (info.advantages && info.advantages.length) {
@@ -156,6 +237,7 @@
 
     function getDefaultKey(slug) {
         const defaults = {
+            // Classical
             "atbash": "(none)", "caesar": "3", "augustus": "(none)",
             "affine": "5,8", "multiplicative": "7",
             "vigenere": "LEMON", "gronsfeld": "31415",
@@ -165,6 +247,32 @@
             "rail-fence": "3", "route": "4", "columnar": "ZEBRAS",
             "myszkowski": "TOMATO", "double-transposition": "ZEBRAS,STRIPE",
             "disrupted": "SECRET", "grille": "0,2,5,7",
+            // Modern Symmetric
+            "des": "DES8KEY!",
+            "3des": "TripleDES24ByteKeyHere!",
+            "aes": "AES128BitKey1234",
+            "idea": "IDEACipherKey128",
+            "rc4": "RC4SecretKey",
+            "salsa20": "Salsa20Key-32BytesLong!!",
+            "chacha20": "ChaCha20Key-32BytesLong!",
+            // Modern Public Key
+            "rsa": "61,53,17",
+            "rabin": "7,11",
+            "schmidt-samoa": "7,11",
+            "elgamal": "467,2,153",
+            "cramer-shoup": "(default parameters)",
+            "massey-omura": "467,37",
+            "ec-elgamal": "3",
+            "ecdsa": "7",
+            "ecies": "5",
+            // Hash Functions
+            "md5": "(no key)",
+            "sha1": "(no key)",
+            "sha2": "(no key)",
+            "sha3": "(no key)",
+            "sha256": "(no key)",
+            "blake2": "(no key)",
+            "blake3": "(no key)",
         };
         return defaults[slug] || "KEY";
     }
