@@ -20,7 +20,7 @@
 
 ### What Makes CipherLab Special?
 
-✨ **18 Classical Ciphers** - From simple Caesar shifts to complex matrix-based encryption  
+✨ **41 Classical & Modern Ciphers** - From simple Caesar shifts to advanced Elliptic Curve cryptography and Modern Hash Functions  
 🎓 **Educational Focus** - Step-by-step explanations reveal the inner workings  
 📊 **Visual Learning** - Interactive tables, mappings, and transformations  
 📜 **Historical Context** - Learn the history and evolution of each cipher  
@@ -32,24 +32,26 @@
 
 ### 🔤 Cipher Categories
 
-#### **Monoalphabetic Substitution**
+#### 📜 Classical Ciphers
+
+**Monoalphabetic Substitution**
 - **Atbash** - Reverse alphabet mapping (A↔Z)
 - **Caesar** - Shift cipher with variable key
 - **Augustus** - Fixed shift-by-one variant
 - **Affine** - Mathematical formula: E(x) = (a·x + b) mod 26
 - **Multiplicative** - Multiplication-based substitution
 
-#### **Polyalphabetic Substitution**
+**Polyalphabetic Substitution**
 - **Vigenère** - Keyword-based repeating shifts
 - **Gronsfeld** - Numeric key variant
 - **Beaufort** - Reciprocal cipher variant
 - **Autokey** - Self-extending key cipher
 - **Running Key** - Long text passage as key
 
-#### **Polygraphic Substitution**
+**Polygraphic Substitution**
 - **Hill** - Matrix multiplication encryption
 
-#### **Transposition**
+**Transposition**
 - **Rail Fence** - Zigzag pattern rearrangement
 - **Route** - Spiral grid reading
 - **Columnar** - Keyword-ordered columns
@@ -57,6 +59,43 @@
 - **Double Transposition** - Two-stage columnar
 - **Disrupted** - Irregular grid filling
 - **Grille** - Rotating mask pattern
+
+#### 🔐 Modern Ciphers
+
+**Symmetric-Key Block Ciphers**
+- **DES** - Data Encryption Standard (56-bit key)
+- **3DES** - Triple Data Encryption Algorithm
+- **AES** - Advanced Encryption Standard (Rijndael)
+- **IDEA** - International Data Encryption Algorithm
+
+**Symmetric-Key Stream Ciphers**
+- **RC4** - Rivest Cipher 4
+- **Salsa20** - Fast stream cipher by DJB
+- **ChaCha20** - Highly secure modern variant of Salsa20
+
+**Public-Key Integer Factorization**
+- **RSA** - Rivest–Shamir–Adleman cryptosystem
+- **Rabin** - Asymmetric cryptosystem using modular square roots
+- **Schmidt-Samoa** - Factorization-based cryptosystem (n=p²q)
+
+**Public-Key Discrete Logarithm**
+- **ElGamal** - Asymmetric key encryption protocol
+- **Cramer-Shoup** - CCA2-secure cryptosystem
+- **Massey-Omura** - Three-pass protocol (no key exchange needed)
+
+**Public-Key Elliptic Curve**
+- **EC-ElGamal** - ElGamal over Elliptic Curves
+- **ECDSA** - Elliptic Curve Digital Signature Algorithm (Sign/Verify)
+- **ECIES** - Elliptic Curve Integrated Encryption Scheme
+
+**Cryptographic Hash Functions**
+- **MD5** - Message-Digest Algorithm 5
+- **SHA-1** - Secure Hash Algorithm 1
+- **SHA-2** (SHA-512) - Advanced Secure Hash Algorithm
+- **SHA-3** (SHA3-256) - Keccak-based Hash Standard
+- **SHA-256** - 256-bit Secure Hash Algorithm
+- **BLAKE2** (BLAKE2b) - Fast modern cryptographic hash
+- **BLAKE3** - Highly parallelizable cryptographic hash
 
 ### 🎯 Key Capabilities
 
@@ -350,7 +389,7 @@ python test_decrypt.py
 ### Expected Output
 
 The test suite verifies:
-- ✅ All 18 ciphers encrypt correctly
+- ✅ All 41 ciphers encrypt correctly
 - ✅ Round-trip encryption/decryption works
 - ✅ Step-by-step explanations are generated
 - ✅ API endpoints return correct responses

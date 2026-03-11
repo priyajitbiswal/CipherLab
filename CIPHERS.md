@@ -1,11 +1,12 @@
 # 🔐 Complete Guide to Cryptographic Ciphers
 
-**A comprehensive, in-depth explanation of all 18 classical ciphers implemented in CipherLab**
+**A comprehensive, in-depth explanation of all 41 classical and modern ciphers implemented in CipherLab**
 
 ---
 
 ## Table of Contents
 
+**Part 1: Classical Ciphers**
 1. [Introduction](#introduction)
 2. [Monoalphabetic Substitution Ciphers](#monoalphabetic-substitution-ciphers)
    - [Atbash Cipher](#1-atbash-cipher)
@@ -29,8 +30,15 @@
    - [Double Transposition](#16-double-transposition-cipher)
    - [Disrupted Transposition](#17-disrupted-transposition-cipher)
    - [Grille Cipher](#18-grille-cipher)
-6. [Cryptanalysis Overview](#cryptanalysis-overview)
-7. [Cipher Comparison](#cipher-comparison)
+
+**Part 2: Modern Ciphers**
+6. [Modern Symmetric-Key Ciphers](#symmetric-key-ciphers)
+7. [Modern Public-Key Cryptography](#public-key-cryptography)
+8. [Cryptographic Hash Functions](#cryptographic-hash-functions)
+
+**Part 3: Cryptanalysis & Conclusion**
+9. [Cryptanalysis Overview](#cryptanalysis-overview)
+10. [Cipher Comparison](#cipher-comparison)
 
 ---
 
@@ -1360,6 +1368,32 @@ Attributed to Girolamo Cardano in the 16th century. Used for steganography and s
 
 ---
 
+## Modern Ciphers Overview
+
+Modern cryptography builds upon the concepts of classical ciphers (substitution and transposition) but applies them over complex mathematical structures, multiple rounds, and binary operations, ensuring security against modern computational power.
+
+### Symmetric-Key Ciphers
+
+In symmetric-key cryptography, the same key is used for both encryption and decryption.
+*   **Block Ciphers**: Encrypt data in fixed-size blocks (e.g., 64-bit or 128-bit). Include: **DES**, **3DES**, **AES**, **IDEA**. AES is the current global standard due to its high security and efficiency.
+*   **Stream Ciphers**: Encrypt data bit-by-bit or byte-by-byte, combining the plaintext with a pseudorandom cipher digit stream (keystream). Include: **RC4**, **Salsa20**, **ChaCha20**. ChaCha20 is highly favored in modern systems (like TLS) on devices without dedicated AES hardware.
+
+### Public-Key Cryptography
+
+In asymmetric (public-key) cryptography, a key pair is used: a public key for encryption (or signature verification) and a private key for decryption (or signing).
+*   **Integer Factorization Systems**: Rely on the extreme difficulty of factoring large composite numbers. Include: **RSA**, **Rabin**, and **Schmidt-Samoa**.
+*   **Discrete Logarithm Systems**: Base their security on the difficulty of computing discrete logarithms in finite fields. Include: **ElGamal**, **Cramer-Shoup**, and **Massey-Omura**.
+*   **Elliptic Curve Systems (ECC)**: Base their security on the discrete logarithm problem over elliptic curves. They provide the same level of security as traditional systems but with much smaller key sizes, making them faster and more efficient. Include: **EC-ElGamal**, **ECDSA** (for digital signatures), and **ECIES** (for encryption).
+
+### Cryptographic Hash Functions
+
+Hash functions take an arbitrary amount of data and output a fixed-size 'digest' (or hash). They are deterministic, one-way, and collision-resistant.
+*   **Older Standards**: **MD5** and **SHA-1** (both now considered cryptographically broken for collision resistance but historically significant).
+*   **Current Standards**: **SHA-2** (e.g. SHA-256, SHA-512) and **SHA-3** (Keccak-based, structurally different from SHA-2).
+*   **Modern High-Speed Hashes**: **BLAKE2** (BLAKE2b) and **BLAKE3**. Highly optimized for software platforms, offering security comparable to SHA-3 but at speeds exceeding MD5.
+
+---
+
 ## Cryptanalysis Overview
 
 ### Common Attack Methods
@@ -1452,7 +1486,7 @@ Double Transposition (layered security)
 
 ## Conclusion
 
-This guide has covered all 18 classical ciphers implemented in CipherLab. Each cipher demonstrates important cryptographic concepts:
+This guide has covered all 41 classical and modern ciphers implemented in CipherLab. Each cipher demonstrates important cryptographic concepts:
 
 - **Monoalphabetic ciphers** show the basics but are easily broken
 - **Polyalphabetic ciphers** introduce variable substitution but have periodicity issues
